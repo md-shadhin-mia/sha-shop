@@ -1,0 +1,14 @@
+/*
+Theme Name: shashop
+Theme URI: http://github.com/muhammadshadhin/
+Author: md Shadhin
+Version: 1.0
+*/
+@import "tailwindcss/base";
+@import "./cutom-base.css";
+
+@import "tailwindcss/components";
+@import "./custom-component.css";
+
+@import "tailwindcss/utilities";
+

@@ -1,0 +1,30 @@
+@import "./materialdesignicons.css";
+@layer base{
+    :root{
+        --header-background-color: #efefef;
+        --header-menu-color:#000000;
+        --header-menu-hover-color: #008100;
+        --header-menu-selected-color:#004040;
+        --button-primary-color:#008100;
+        --header-menu-font-size: 1rem;  /*xs 0.75rem sm 0.875rem  base 1rem lg 1.125rem lx 1.25rem 2lx 1.5rem 3xl 1.875rem 4xl 2.25rem 5xl */
+    }
+    
+    html{
+        @apply font-sans;
+    }
+    *{
+        box-sizing: border-box;
+    }
+    h1{
+        @apply text-3xl;
+    }
+    h2{
+        @apply text-2xl;
+    }
+    h3{
+        @apply text-xl;
+    }
+    h4{
+        @apply text-lg;
+    }
+}
