@@ -1,14 +1,16 @@
 <?php get_header()?>
-<?php
-		if ( have_posts() ) :
+    <div class="main">
+        <h1>page hphp</h1>
+        <?php
+                if ( have_posts() ) :
 
-			get_template_part( 'loop' );
+                    get_template_part( 'loop' );
 
-		else :
+                else :
 
-			get_template_part( 'content', 'none' );
+                    get_template_part( 'content', 'none' );
 
-		endif;
-?>
-
+                endif;
+        ?>
+    </div>
 <?php get_footer()?>

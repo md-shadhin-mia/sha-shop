@@ -1,6 +1,13 @@
 <?php
 
-use function PHPSTORM_META\type;
+if ( ! function_exists( 'shashop_is_woocommerce_activated' ) ) {
+	/**
+	 * Query WooCommerce activation
+	 */
+	function shashop_is_woocommerce_activated() {
+		return class_exists( 'WooCommerce' ) ? true : false;
+	}
+}
 
 function load_stylesheet_script(){
     wp_register_style("sha-stylesheet", get_template_directory_uri()."/style.css", "",1, "all");
@@ -22,8 +29,32 @@ function sha_shop_setup_theme(){
         'secondary' => __("Secondary Menu", "shashop"),
     ));
 }
+function shashop_add_woocommerce_support(){
+    add_theme_support(
+        'woocommerce',
+            array(
+                'single_image_width'    => 416,
+                'thumbnail_image_width' => 324,
+                'product_grid'          => array(
+                    'default_columns' => 3,
+                    'default_rows'    => 4,
+                    'min_columns'     => 1,
+                    'max_columns'     => 6,
+                    'min_rows'        => 1,
+                ),
+            )
+        );
+}
+
+add_theme_support( 'wc-product-gallery-zoom' );
+add_theme_support( 'wc-product-gallery-lightbox' );
+add_theme_support( 'wc-product-gallery-slider' );
 
 add_action('after_setup_theme', 'sha_shop_setup_theme');
+
+// adding woocommerce support 
+add_action('after_setup_theme', 'shashop_add_woocommerce_support');
+
 function sha_shop_customizer_register($wp_customize){
 
 
@@ -214,3 +245,48 @@ function get_shashop_search_form($form){
     return $form;
 }
 add_filter('get_search_form', 'get_shashop_search_form');
+
+
+add_theme_support('post-thumbnails');
+
+
+// //woocommerce unhook
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
+remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
+
+
+// remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+// remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+
+// //woocommerce hook
+
+// remove_action('woocommerce_before_main_content', 'shashop_theme_wrapper_start', 10);
+// remove_action('woocommerce_after_main_content', 'shashop_theme_wrapper_end', 10);
+
+add_action( 'woocommerce_before_main_content', 'shashop_theme_wrapper_start', 10 );
+add_action( 'woocommerce_after_main_content', 'shashop_theme_wrapper_end', 10 );
+function shashop_theme_wrapper_start(){
+    echo '<div class="working-towrok"><h1>Hello world</h1>';
+}
+
+function shashop_theme_wrapper_end(){
+    echo '</div>';
+}
+
+
+//woocommerch adding aditional action to development
+
+add_action('shashop_woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open');
+add_action('shashop_woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close');
+
+add_action('shashop_woocommerce_shop_loop_add_to_cart', 'woocommerce_template_loop_add_to_cart');
+
+//adiing filter 
+
+add_filter('woocommerce_add_to_cart_fragments','item_is_counted');
+
+function item_is_counted($fregment){
+    $item_count = WC()->cart->get_cart_contents_count();
+    $fregment["#custom_fragment_cart_count"]='<span class="badge '.($item_count===0? 'hidden':'').'" id="custom_fragment_cart_count">'.$item_count.'</span>';
+    return $fregment;
+}

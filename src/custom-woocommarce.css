@@ -1,0 +1,80 @@
+@layer components{
+    .woocommerce{
+        
+        ul.multi-products{
+            @apply grid grid-cols-2 mt-10 gap-4 pb-8;;
+            &.columns-4{
+                @apply md:grid-cols-3 lg:grid-cols-4;
+            }
+            &.columns-5{
+                @apply md:grid-cols-4 lg:grid-cols-5;
+            }
+            &.columns-6{
+                @apply md:grid-cols-4 lg:grid-cols-6;
+            }
+            &.columns-7{
+                @apply md:md:grid-cols-4 lg:grid-cols-7;
+            }
+            &.columns-8{
+                @apply md:md:grid-cols-4 lg:grid-cols-8;
+            }
+            li.product{
+                @apply flex flex-col items-center shadow-sm relative border border-gray-200 rounded;
+                a.woocommerce-LoopProduct-link{
+                    @apply flex flex-col items-center justify-center overflow-hidden w-full px-2;
+                    .onsale{
+                        height: 2rem;
+                        width: 2rem;
+                        padding: 0px;
+                        top: 4px;
+                        left: 4px;
+                    }
+                    img.size-woocommerce_thumbnail{
+                        width: 100%;
+
+                    }
+                    &:first-child{
+                        @apply grow px-0;
+                    }
+                }
+                a.product_type_simple.add_to_cart_button{
+                    @apply m-2;
+                }
+                &:hover{
+                    @apply shadow-xl;
+                    a.woocommerce-LoopProduct-link{
+                        img.size-woocommerce_thumbnail{
+                            @apply scale-150 transition-transform;
+                            transition-duration: 2.5s;
+                        }
+                    }
+                }
+                
+            }
+        }
+        ul.multi-products::before{
+            content:none !important;
+        }
+
+        
+    }
+    .woocommerce form .show-password-input {
+        position: absolute;
+        right: 0.7em;
+        top: 0.5em !important;
+        cursor: pointer;
+    }
+    .woocommerce-product-search{
+        @apply flex;
+        .button{
+            @apply inline-block bg-white px-4 py-2 before:mdi before:mdi-cart-minus;
+        }
+        input:focus + .button{
+            @apply hidden;
+        }
+    }
+    .price del{
+        @apply text-yellow-600 text-xs block text-center;
+    }
+}
+
