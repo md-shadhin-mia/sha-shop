@@ -15,6 +15,8 @@
  * @version 3.5.1
  */
 
+use function PHPSTORM_META\map;
+
 defined( 'ABSPATH' ) || exit;
 
 // Note: `wc_get_gallery_image_html` was added in WC 3.3.2 and did not exist prior. This check protects against theme overrides being used on older versions of WC.
@@ -26,6 +28,7 @@ global $product;
 
 $columns           = apply_filters( 'woocommerce_product_thumbnails_columns', 4 );
 $post_thumbnail_id = $product->get_image_id();
+$attachment_ids = $product->get_gallery_image_ids();
 $wrapper_classes   = apply_filters(
 	'woocommerce_single_product_image_gallery_classes',
 	array(
@@ -35,21 +38,42 @@ $wrapper_classes   = apply_filters(
 		'images',
 	)
 );
+
+function get_image_urls($item){
+	return wp_get_attachment_url($item);
+}
 ?>
-<div class="<?php echo esc_attr( implode( ' ', array_map( 'sanitize_html_class', $wrapper_classes ) ) ); ?>" data-columns="<?php echo esc_attr( $columns ); ?>" style="opacity: 0; transition: opacity .25s ease-in-out;">
-	<figure class="woocommerce-product-gallery__wrapper">
-		<?php
-		if ( $post_thumbnail_id ) {
-			$html = wc_get_gallery_image_html( $post_thumbnail_id, true );
-		} else {
-			$html  = '<div class="woocommerce-product-gallery__image--placeholder">';
-			$html .= sprintf( '<img src="%s" alt="%s" class="wp-post-image" />', esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ), esc_html__( 'Awaiting product image', 'woocommerce' ) );
-			$html .= '</div>';
-		}
 
-		echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
+<?php 
+// var_dump($wrapper_classes);
+// var_dump($attachment_ids);
 
-		do_action( 'woocommerce_product_thumbnails' );
-		?>
-	</figure>
+?>
+
+<div class="p-2 w-full md:w-1/2">
+	<div class="zoom-preview">
+		<div class="preview-container">
+		</div>
+	</div>
+	<div class="swiper product-gallery">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide"><?php echo wc_get_gallery_image_html( $post_thumbnail_id, true )?></div>
+			<?php foreach($attachment_ids as $at_id){
+				echo '<div class="swiper-slide">'.wc_get_gallery_image_html($at_id).'</div>';
+			}?>
+		</div>
+
+		<div class="pagination flex justify-center py-2"></div>
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+	</div>
+
+	<div class="swiper gallery-Thumnail">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide"><?php echo wp_get_attachment_image( $post_thumbnail_id, true )?></div>
+			<?php foreach($attachment_ids as $at_id){
+				echo '<div class="swiper-slide">'.wp_get_attachment_image($at_id).'</div>';
+			}?>
+		</div>
+	</div>
 </div>

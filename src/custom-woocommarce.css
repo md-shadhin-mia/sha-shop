@@ -3,6 +3,12 @@
         
         ul.multi-products{
             @apply grid grid-cols-2 mt-10 gap-4 pb-8;;
+            &.columns-2{
+                @apply md:grid-cols-2 lg:grid-cols-2;
+            }
+            &.columns-3{
+                @apply md:grid-cols-2 lg:grid-cols-3;
+            }
             &.columns-4{
                 @apply md:grid-cols-3 lg:grid-cols-4;
             }
@@ -40,6 +46,20 @@
                 a.product_type_simple.add_to_cart_button{
                     @apply m-2;
                 }
+                &.product-category{
+                    @apply shadow-none border-none hover:shadow-none;
+                    a{
+                        @apply flex flex-col justify-center items-center;
+                        img{
+                            @apply rounded-full h-28 w-28 border border-gray-300;
+                        }
+                        h2{
+                            mark{
+                                @apply hidden;
+                            }
+                        }
+                    }
+                }
                 &:hover{
                     @apply shadow-xl;
                     a.woocommerce-LoopProduct-link{
@@ -56,7 +76,20 @@
             content:none !important;
         }
 
-        
+        a,button,input{
+            /* @apply !bg-blue-500; */
+            &.button{
+                @apply inline-block rounded-md text-base px-4 py-2 bg-green-300;
+                &.add_to_cart_button{
+                    @apply before:mdi before:mdi-cart-plus;
+                }
+                &.added{
+                    &:before{
+                        content:none;
+                    }
+                }
+            }
+        }
     }
     .woocommerce form .show-password-input {
         position: absolute;
@@ -65,16 +98,105 @@
         cursor: pointer;
     }
     .woocommerce-product-search{
-        @apply flex;
-        .button{
-            @apply inline-block bg-white px-4 py-2 before:mdi before:mdi-cart-minus;
+        @apply flex p-1 overflow-hidden h-12;
+        &.open{
+            .product-search-label {
+                @apply !hidden;
+            }
+            .search-field{
+                @apply !inline-block;
+            }
+            .product-search-submit{
+                @apply !inline-block;
+            }
         }
-        input:focus + .button{
-            @apply hidden;
+        .search-field{
+            @apply border-none rounded-l-full hidden;
+            animation: fadeInDown 0.3s;
+        }
+        .product-search-label{
+            @apply mr-1;
+        }
+        .product-search-submit{
+            @apply !hidden !rounded-r-full;
+            animation: flipInY 0.3s;
+        }
+
+        &:focus-within{
+            input, .button{
+                @apply !shadow-md;
+            }
         }
     }
     .price del{
         @apply text-yellow-600 text-xs block text-center;
     }
+    .coupon{
+        @apply w-full flex md:w-1/2 md:flex-row;
+        .input-text{
+            @apply flex-grow;
+        }
+    }
+
+    .product{
+        .woocommerce-product-gallery{
+            @apply flex flex-col min-h-[70vh];
+            .flex-viewport{
+                @apply flex-grow;
+            }
+            .flex-control-nav{
+                @apply whitespace-nowrap;
+                li{
+                    @apply p-4 inline align-top float-none;
+                }
+                img.flex-active{
+                    @apply scale-125;
+                }
+            }
+        }
+    }
+    
+    
 }
 
+.swiper{
+    &.gallery-Thumnail{
+        .swiper-slide{
+            @apply opacity-30 scale-75;
+            transition:transform 0.3s linear;
+            img{
+                width: 100%;
+            }
+            &.swiper-slide-thumb-active{
+                @apply opacity-100 scale-100;
+                background-color: blue;
+                img{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.shashop-breadcrumbs{
+    @apply flex py-3 px-5  rounded-lg border border-gray-200;
+    ol{
+        @apply inline-flex items-center space-x-1 md:space-x-3;
+        li{
+            @apply inline-flex items-center last:text-gray-700;
+            a{
+                @apply text-gray-500 hover:text-inherit;
+            }
+        }
+    }
+ }
+
+.zoom-preview{
+    @apply relative;
+    .preview-container{
+        @apply absolute left-full z-50 border border-gray-500 overflow-hidden hidden shadow-md;
+        &.open{
+            @apply md:block;
+        }
+    }
+}

@@ -1,7 +1,7 @@
 const plugin = require('tailwindcss/plugin');
 const mdiCss = require('./src/library/material-design-icon');
 module.exports = {
-    content: ["./src/**/*.{html,js}","./dist/**/*.{php, html}"],
+    content: ["./src/**/*.{html,js}","./dist/**/*.{php, html, js}"],
     theme: {
       extend: {
       },

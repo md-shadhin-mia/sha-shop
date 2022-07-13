@@ -4,19 +4,25 @@
 @layer base{
     :root{
         --header-background-color: #efefef;
+        --header-text-color:#000000;
         --header-menu-color:#000000;
         --header-menu-hover-color: #008100;
         --header-menu-selected-color:#004040;
         --button-primary-color:#008100;
         --header-menu-font-size: 1rem;  /*xs 0.75rem sm 0.875rem  base 1rem lg 1.125rem lx 1.25rem 2lx 1.5rem 3xl 1.875rem 4xl 2.25rem 5xl */
+        /* footer working */
+        --footer-background-color: #efefef;
+        --footer-text-color: #0f0f0f;
+        --footer-link-color: #000ff0;
         /*  */
-        --container-max-w:100%
+        --container-max-w:100%;
         --container-max-w-sm:540px;
         --container-max-w-md:720px;
         --container-max-w-lg:960px;
         --container-max-w-xl:1140px;
 
     }
+
     @font-face {
         font-family: "Material Design Icons";
         src: url("./fonts/materialdesignicons-webfont.eot?v=6.7.96");
@@ -26,7 +32,8 @@
         url("./fonts/materialdesignicons-webfont.ttf?v=6.7.96") format("truetype");
         font-weight: normal;
         font-style: normal;
-      }      
+    }
+
     html{
         @apply font-sans;
         font-family: Nunito,sans-serif;
@@ -49,4 +56,9 @@
     .badge{
         @apply absolute inline-block px-2 py-1 top-0 left-2/3 rounded-3xl text-xs text-center bg-green-500 ;
     }
+   
+}
+
+.coverpadding{
+    @apply py-56;
 }

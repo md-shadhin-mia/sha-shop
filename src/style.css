@@ -12,3 +12,6 @@ Version: 1.0
 
 @import "tailwindcss/utilities";
 
+.covercss{
+    height: 100px;
+}
