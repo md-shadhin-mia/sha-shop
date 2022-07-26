@@ -156,7 +156,9 @@
         }
     }
     
-    
+    .woocommerce-ordering-form{
+        @apply block md:float-right;
+    }
 }
 
 .swiper{

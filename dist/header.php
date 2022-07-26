@@ -26,33 +26,37 @@
                      <?php }?>
                 </a>
                 <div class="flex ml-auto items-center">
-                    <div class="header-search">
-                        <?php
-                        if(shashop_is_woocommerce_activated()){
-                            the_widget( 'WC_Widget_Product_Search', 'title=' );
-                        }else{
-                            get_search_form();
-                        }
-                        ?>
+                    <div class="bottom-nav">
+                        <div class="header-search">
+                            <?php
+                            if(shashop_is_woocommerce_activated()){
+                                the_widget( 'WC_Widget_Product_Search', 'title=' );
+                            }else{
+                                get_search_form();
+                            }
+                            ?>
+                        </div>
+                        
+                        <?php  if(shashop_is_woocommerce_activated()){ ?>
+                                <div class="header-cart cover">
+                                    <a href="<?php echo wc_get_cart_url()?>" class="p-1 relative before:mdi before:mdi-cart text-3xl"><span class="badge" id="custom_fragment_cart_count"><?php echo wp_kses_data( sprintf( _n( '%d', '%d', WC()->cart->get_cart_contents_count(), 'shashop' ), WC()->cart->get_cart_contents_count() ) ); ?></span></a>
+                                    <?php if(!is_cart() && !is_checkout()){ ?>
+                                        <div class="cart-overlay">
+                                            <div class="cart">
+                                                <?php the_widget( 'WC_Widget_Cart', 'title=' )?>
+                                            </div>
+                                        </div>
+                                <?php }?>
+                                </div>
+                        <?php } ?>
                     </div>
                     
-                    <?php 
-						if(shashop_is_woocommerce_activated()){
-							
-							?>
-								<div class="header-cart cover">
-									<a href="<?php echo wc_get_cart_url()?>" class="p-1 relative before:mdi before:mdi-cart text-3xl"><span class="badge" id="custom_fragment_cart_count"><?php echo wp_kses_data( sprintf( _n( '%d', '%d', WC()->cart->get_cart_contents_count(), 'shashop' ), WC()->cart->get_cart_contents_count() ) ); ?></span></a>
-									<?php if(!is_cart() && !is_checkout()){ ?>
-										<div class="cart-overlay">
-											<div class="cart">
-												<?php the_widget( 'WC_Widget_Cart', 'title=' )?>
-											</div>
-										</div>
-								<?php }?>
-								</div>
-							<?php 
-						}
-					?>
+                     <?php  if(shashop_is_woocommerce_activated()){ ?>
+                            <div class="my-account ml-2">
+                                    <a href="<?php echo esc_url( get_permalink( get_option( 'woocommerce_myaccount_page_id' ) ) ) ?>" class="p-1 relative before:mdi before:mdi-account-circle text-3xl"></a>
+                            </div>
+                    <?php  } ?>
+                    
                 </div>
                 <button class="mobile-menu-toggler"><i></i></button>         
             </div>
