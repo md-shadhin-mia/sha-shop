@@ -3,6 +3,7 @@
     "@webpack-cli/generators": "^2.4.2",
     "autoprefixer": "^10.4.7",
     "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.0.0",
     "file-loader": "^6.2.0",
     "mini-css-extract-plugin": "^2.6.0",
     "postcss": "^8.4.14",
@@ -20,7 +21,7 @@
   "name": "my-webpack-project",
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
-    "build:dev": "webpack --mode=development -d true",
+    "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "watch": "webpack --watch"
   },

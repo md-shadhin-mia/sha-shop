@@ -2,7 +2,7 @@
 
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const isProduction = process.env.NODE_ENV == "production";
 
 const stylesHandler = MiniCssExtractPlugin.loader;
@@ -13,6 +13,11 @@ const config = {
     filename:'js/main.js',
     path: path.resolve(__dirname, "dist"),
     assetModuleFilename:'asset/[name]-[hash].[ext]'
+  },
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin(),
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
